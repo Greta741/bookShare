@@ -8,11 +8,11 @@ const bookSchema = Joi.object().keys({
     name: Joi.string().min(3).max(30).required(),
     author: Joi.string().min(3).max(30).required(),
     year: Joi.number().integer().min(1900).max(today.getFullYear()),
-    types: Joi.array().items(Joi.string().valid(types)).required(),
+    type: Joi.string().valid(types).required(),
     city: Joi.string().valid(cities),
-    pages: Joi.number().integer().min(0).max(10000),
+    pages: Joi.number().integer().min(0).max(10000).required(),
     tradable: Joi.boolean().required(),
-    forSell: Joi.boolean(),
+    forSell: Joi.boolean().required(),
     price: Joi.number().min(0).max(10000),
 }).with('forSell', 'price');
 

@@ -1,5 +1,5 @@
 const router = require('express').Router();
 
-router.use('/books', require('./books'));
+router.use('/books', require('./booksService'));
 
 module.exports = router;

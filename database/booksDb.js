@@ -1,4 +1,4 @@
-const getBooksDb = require('./mongoDbService').getBooksDb;
+const getBooksDb = require('./mongoDb').getBooksDb;
 const objectId = require('mongodb').ObjectId;
 
 const getBooks = () => {
@@ -8,7 +8,7 @@ const getBooks = () => {
 const getBooksByParams = params => {
     const query = {};
     if (params.type) {
-        query.types = params.type;
+        query.type = params.type;
     }
     if (params.city) {
         query.city = params.city;

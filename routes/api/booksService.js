@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const bookService = require('../../services/booksService');
+const bookService = require('../../database/booksDb');
 const validator = require('../../utils/validators');
 
 router.get('/', (req, res) => {
