@@ -5,28 +5,23 @@ const getBooks = () => {
     return getBooksDb().find().sort({ dateUpdated: -1 }).toArray();
 };
 
-const getBooksByParams = params => {
-    const query = {};
-    if (params.type) {
-        query.type = params.type;
-    }
-    if (params.city) {
-        query.city = params.city;
-    }
-    return getBooksDb().find(query).sort({ dateUpdated: -1 }).toArray();
-};
-
 const getBook = id => {
     return getBooksDb().findOne(objectId(id));
 };
 
-const createBook = book => {
+const createBook = (book, user) => {
     book.dateUpdated = new Date();
+    book.userId = new objectId(user._id);
+    book.email = user.email;
+    book.phone = user.phone
     return getBooksDb().insert(book);
 };
 
-const updateBook = (id, book) => {
+const updateBook = (id, book, user) => {
     book.dateUpdated = new Date();
+    book.userId = new objectId(user._id);
+    book.email = user.email;
+    book.phone = user.phone
     return getBooksDb().updateOne(
         { _id: objectId(id)},
         book
@@ -41,7 +36,6 @@ const deleteBook = id => {
 
 module.exports = {
     getBooks,
-    getBooksByParams,
     getBook,
     createBook,
     updateBook,

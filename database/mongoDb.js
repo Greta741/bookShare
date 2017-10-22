@@ -8,6 +8,7 @@ const mongoConnect = () => {
     MongoClient.connect(url).then((db) => {
         collections = {
             booksCollection: db.collection('booksCollection'),
+            usersCollection: db.collection('usersCollection'),
         };
     }).catch((err) => console.error(err));
 };
@@ -16,7 +17,12 @@ const getBooksDb = () => {
     return collections.booksCollection;
 }
 
+const getUsersDb = () => {
+    return collections.usersCollection;
+}
+
 module.exports = {
     mongoConnect,
-    getBooksDb
+    getBooksDb,
+    getUsersDb
 };

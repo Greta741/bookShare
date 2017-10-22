@@ -18,6 +18,13 @@ const bookSchema = Joi.object().keys({
 
 const bookIdSchema = Joi.objectId();
 
+const userSchema = Joi.object().keys({
+    name: Joi.string().min(3).max(50).required(),
+    email: Joi.string().email().required(),
+    phone: Joi.number().min(100000000).max(999999999).required(),
+    password: Joi.string().min(8).max(50).required(),
+});
+
 const validateBook = book => {
     return Joi.validate(book, bookSchema);
 };
@@ -26,7 +33,12 @@ const validateBookId = id => {
     return Joi.validate(id, bookIdSchema);
 };
 
+const validateUser = user => {
+    return Joi.validate(user, userSchema);
+}
+
 module.exports = {
     validateBook,
-    validateBookId
+    validateBookId,
+    validateUser
 };
