@@ -9,6 +9,9 @@ const mongoConnect = () => {
         collections = {
             booksCollection: db.collection('booksCollection'),
             usersCollection: db.collection('usersCollection'),
+            clientsCollection: db.collection('clients'),
+            codesCollection: db.collection('codesCollection'),
+            tokensCollection: db.collection('tokensCollection'),
         };
     }).catch((err) => console.error(err));
 };
@@ -21,8 +24,23 @@ const getUsersDb = () => {
     return collections.usersCollection;
 }
 
+const getClientsDb = () => {
+    return collections.clientsCollection;
+}
+
+const getCodesDb = () => {
+    return collections.codesCollection;
+}
+
+const getTokensDb = () => {
+    return collections.tokensCollection;
+}
+
 module.exports = {
     mongoConnect,
     getBooksDb,
-    getUsersDb
+    getUsersDb,
+    getClientsDb,
+    getCodesDb,
+    getTokensDb
 };

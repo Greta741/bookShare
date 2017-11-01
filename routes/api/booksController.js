@@ -3,52 +3,54 @@ const booksDb = require('../../database/booksDb');
 const validator = require('../../utils/validators');
 const authController = require('./auth/authController');
 
-router.get('/', (req, res) => {
-    booksDb.getBooks().then(books => {
+router.get('/', async (req, res) => {
+    try {
+        const books = await booksDb.getBooks();
         res.status(200);
         res.json(books);
-    }, () => {
+    } catch (e) {
         res.sendStatus(503);
-    });
+    }
 });
 
-router.get('/:id', (req, res) => {
-    booksDb.getBook(req.params.id).then(book => {
+router.get('/:id', async (req, res) => {
+    try {
+        const book = await booksDb.getBook(req.params.id);
         if (book) {
-            res.sendStatus(200);
+            res.status(200);
+            res.json(book);
         } else {
             res.sendStatus(404);
         }
-    }, () => {
+    } catch (e) {
         res.sendStatus(503);
-    });
+    }
 });
 
-router.post('/', authController.isAuthenticated, (req, res) => {
+router.post('/', authController.isAuthenticated, async (req, res) => {
     const bookValidationResult = validator.validateBook(req.body);
     if (bookValidationResult.error) {
         res.sendStatus(400);
         return;
     }
-    booksDb.createBook(req.body, req.user).then(() => {
+    try {
+        booksDb.createBook(req.body, req.user);
         res.status(201);
-        res.json({});
         res.send();
-    }, () => {
+    } catch (e) {
         res.sendStatus(503);
-    });
+    }
 });
 
-router.put('/:id', authController.isAuthenticated, (req, res) => {
+router.put('/:id', authController.isAuthenticated, async (req, res) => {
     const idValidationResult = validator.validateBookId(req.params.id);
     const bookValidationResult = validator.validateBook(req.body);
-
-    if (idValidationResult.error || bookValidationResult.error) {
-        res.sendStatus(400);
-        return;
-    }
-
-    booksDb.getBook(req.params.id).then(book => {
+    try {
+        if (idValidationResult.error || bookValidationResult.error) {
+            res.sendStatus(400);
+            return;
+        }
+        const book = await booksDb.getBook(req.params.id);
         if (!book) {
             res.sendStatus(404);
             return;
@@ -66,8 +68,9 @@ router.put('/:id', authController.isAuthenticated, (req, res) => {
         } else {
             res.sendStatus(401)
         }
-    })
-
+    } catch (e) {
+        res.sendStatus(503);
+    }
 });
 
 router.delete('/:id', authController.isAuthenticated, (req, res) => {

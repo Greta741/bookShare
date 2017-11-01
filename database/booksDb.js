@@ -21,7 +21,7 @@ const updateBook = (id, book, user) => {
     book.dateUpdated = new Date();
     book.userId = new objectId(user._id);
     book.email = user.email;
-    book.phone = user.phone
+    book.phone = user.phone;
     return getBooksDb().updateOne(
         { _id: objectId(id)},
         book
