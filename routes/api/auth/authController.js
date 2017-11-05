@@ -15,12 +15,10 @@ passport.use(new BasicStrategy(
                 return callback(null, false);
             }
 
-            if (bcrypt.compareSync(password, user.password)) {  // TODO: fix this
-                console.log('password does not match');
+            if (bcrypt.compareSync(password, user.password)) {
                 return callback(null, user);
             } else {
-                console.log('ok');
-                return callback(null, user);
+                return callback(null, false);
             }
         });
     }

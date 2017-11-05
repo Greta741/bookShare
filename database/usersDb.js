@@ -15,7 +15,7 @@ const getUserById = id => {
 const createUser = user => {
     return getUsersDb().insert({
         ...user,
-        clientId: booksClient,
+        clientId: defaultClientId,
         password: bcrypt.hashSync(user.password),
     });
 };

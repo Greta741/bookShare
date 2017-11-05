@@ -9,7 +9,7 @@ const mongoConnect = () => {
         collections = {
             booksCollection: db.collection('booksCollection'),
             usersCollection: db.collection('usersCollection'),
-            clientsCollection: db.collection('clients'),
+            clientsCollection: db.collection('clientsCollection'),
             codesCollection: db.collection('codesCollection'),
             tokensCollection: db.collection('tokensCollection'),
         };
