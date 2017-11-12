@@ -23,6 +23,7 @@ const userSchema = Joi.object().keys({
     email: Joi.string().email().required(),
     phone: Joi.number().min(100000000).max(999999999).required(),
     password: Joi.string().min(8).max(50).required(),
+    repeatPassword: Joi.string(),
 });
 
 const validateBook = book => {

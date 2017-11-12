@@ -36,6 +36,7 @@ router.post('/', authController.isAuthenticated, async (req, res) => {
     try {
         booksDb.createBook(req.body, req.user);
         res.status(201);
+        res.json({});
         res.send();
     } catch (e) {
         res.sendStatus(503);

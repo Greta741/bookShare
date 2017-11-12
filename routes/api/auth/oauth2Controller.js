@@ -31,7 +31,7 @@ const token = async (req, res) => {
             userId: code.userId,
             clientId: code.clientId
         });
-        res.json({ token: newToken });
+        res.json({ token: newToken, userId: code.userId });
     } else {
         res.sendStatus(401)
     }
