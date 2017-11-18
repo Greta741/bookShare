@@ -1,0 +1,275 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Swagger BookShare"
+  },
+  "tags": [
+    {
+      "name": "Books"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/books": {
+      "get": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Get all books",
+        "description": "",
+        "operationId": "getBooks",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Book"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Add a new book",
+        "description": "",
+        "operationId": "addBook",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BookEdit"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Book created"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/books/{bookId}": {
+      "get": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Find book by id",
+        "description": "",
+        "operationId": "getBookById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "path",
+            "description": "ID of book",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Book not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Update book",
+        "description": "",
+        "operationId": "updateBook",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "path",
+            "description": "ID of book",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BookEdit"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Book updated"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Book not found"
+          },
+          "503": {
+            "description": "Db error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Delete book",
+        "description": "",
+        "operationId": "deleteBook",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "path",
+            "description": "Book id to delete",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Book deleted"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Book not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "BookEdit": {
+      "type": "object",
+      "required": [
+        "name",
+        "author",
+        "year",
+        "type",
+        "city",
+        "pages",
+        "tradable",
+        "forSell",
+        "price"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "author": {
+          "type": "string"
+        },
+        "year": {
+          "type": "integer"
+        },
+        "type": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "pages": {
+          "type": "integer"
+        },
+        "tradable": {
+          "type": "boolean"
+        },
+        "forSell": {
+          "type": "boolean"
+        },
+        "price": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "BookEdit"
+      }
+    },
+    "Book": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "author": {
+          "type": "string"
+        },
+        "year": {
+          "type": "integer"
+        },
+        "type": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "pages": {
+          "type": "integer"
+        },
+        "tradable": {
+          "type": "boolean"
+        },
+        "forSell": {
+          "type": "boolean"
+        },
+        "price": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "Book"
+      }
+    }
+  }
+}
